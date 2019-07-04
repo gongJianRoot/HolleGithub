@@ -16,7 +16,7 @@ import com.hw.service.DramaService;
 import com.hw.service.ScoreInfoService;
 
 /**
- * »°¾çĞÅÏ¢µÄ¿ØÖÆÆ÷
+ * è¯å‰§ä¿¡æ¯çš„æ§åˆ¶å™¨ç¬¬ä¸€æ¬¡åœ¨githubä¸Šè¿›è¡Œæµ‹è¯•
  * 
  * @author Smile
  *
@@ -24,7 +24,7 @@ import com.hw.service.ScoreInfoService;
 @Controller
 public class DramaController {
 
-	// ÒÀÀµ×¢Èë
+	// ä¾èµ–æ³¨å…¥
 	DramaService dramaService;
 
 	public DramaService getDramaService() {
@@ -35,7 +35,7 @@ public class DramaController {
 		this.dramaService = dramaService;
 	}
 
-	// ÒÀÀµ×¢Èë
+	// ä¾èµ–æ³¨å…¥
 	ScoreInfoService scoreInfoService;
 
 	public ScoreInfoService getScoreInfoService() {
@@ -47,14 +47,14 @@ public class DramaController {
 	}
 
 	/**
-	 * ÎŞÌõ¼ş²éÑ¯ËùÓĞ»°¾çĞÅÏ¢µÄ¿ØÖÆ·½·¨-¹ÜÀíÔ±
+	 * æ— æ¡ä»¶æŸ¥è¯¢æ‰€æœ‰è¯å‰§ä¿¡æ¯çš„æ§åˆ¶æ–¹æ³•-ç®¡ç†å‘˜
 	 * 
 	 * @return String
 	 */
 	@RequestMapping("/getAllDramas")
 	public String getAllDramas(HttpSession session) {
 		List<Drama> dramaList = dramaService.getAllDramas();
-		// ½«²éÑ¯µ½µÄËùÓĞ¾çÄ¿ĞÅÏ¢´æ·Åµ½sessionÀïÃæ
+		// å°†æŸ¥è¯¢åˆ°çš„æ‰€æœ‰å‰§ç›®ä¿¡æ¯å­˜æ”¾åˆ°sessioné‡Œé¢
 		session.setAttribute("dramaList", dramaList);
 		List<Integer> dramaIdList = new ArrayList<>();
 		for (Drama drama : dramaList) {
@@ -67,14 +67,14 @@ public class DramaController {
 	}
 
 	/**
-	 * ÎŞÌõ¼ş²éÑ¯ËùÓĞ»°¾çĞÅÏ¢µÄ¿ØÖÆ·½·¨-ÆÕÍ¨ÓÃ»§
+	 * æ— æ¡ä»¶æŸ¥è¯¢æ‰€æœ‰è¯å‰§ä¿¡æ¯çš„æ§åˆ¶æ–¹æ³•-æ™®é€šç”¨æˆ·
 	 * 
 	 * @return String
 	 */
 	@RequestMapping("/getAllDramas_User")
 	public String getAllDramas_User(HttpSession session) {
 		List<Drama> dramaList = dramaService.getAllDramas();
-		// ½«²éÑ¯µ½µÄËùÓĞ¾çÄ¿ĞÅÏ¢´æ·Åµ½sessionÀïÃæ
+		// å°†æŸ¥è¯¢åˆ°çš„æ‰€æœ‰å‰§ç›®ä¿¡æ¯å­˜æ”¾åˆ°sessioné‡Œé¢
 		session.setAttribute("dramaList", dramaList);
 		List<Integer> dramaIdList = new ArrayList<>();
 		for (Drama drama : dramaList) {
@@ -87,22 +87,22 @@ public class DramaController {
 	}
 
 	/**
-	 * µÃµ½¾çÄ¿ÆÀ·ÖÏêÏ¸echartsÍ¼µÄ¿ØÖÆ
+	 * å¾—åˆ°å‰§ç›®è¯„åˆ†è¯¦ç»†echartså›¾çš„æ§åˆ¶
 	 * 
 	 * @return Echarts_DramaScoreVo
 	 */
 	@RequestMapping("/getDramaScore_Echarts")
 	public @ResponseBody Echarts_DramaScoreVo getDramaScore_Echarts() {
-		// ´´½¨¾çÄ¿ÆÀ·ÖVO¶ÔÏó
+		// åˆ›å»ºå‰§ç›®è¯„åˆ†VOå¯¹è±¡
 		Echarts_DramaScoreVo dramaScoreVo = new Echarts_DramaScoreVo();
-		// µÃµ½¾çÄ¿Ãû³ÆµÄ¼¯ºÏ--ÓÃÓÚ×öÍ¼±íµÄĞĞ
+		// å¾—åˆ°å‰§ç›®åç§°çš„é›†åˆ--ç”¨äºåšå›¾è¡¨çš„è¡Œ
 		List<Drama> dramaList = dramaService.getAllDramas();
 		List<String> dramaNameList = new ArrayList<>();
 		for (Drama drama : dramaList) {
 			dramaNameList.add(drama.getDramaName());
 		}
 		dramaScoreVo.setDramaName(dramaNameList);
-		// µÃµ½¾çÄ¿ÆÀ·ÖµÄ¼¯ºÏ--ÓÃÓÚ×öÍ¼±íµÄÁĞ
+		// å¾—åˆ°å‰§ç›®è¯„åˆ†çš„é›†åˆ--ç”¨äºåšå›¾è¡¨çš„åˆ—
 		List<Integer> dramaIdList = new ArrayList<>();
 		for (Drama drama : dramaList) {
 			int id = drama.getDramaId();
@@ -118,7 +118,7 @@ public class DramaController {
 	}
 
 	/**
-	 * Ìí¼ÓÒ»Ìõ¾çÄ¿ĞÅÏ¢µÄ¿ØÖÆ
+	 * æ·»åŠ ä¸€æ¡å‰§ç›®ä¿¡æ¯çš„æ§åˆ¶
 	 * 
 	 * @param drama
 	 * @return String
@@ -135,7 +135,7 @@ public class DramaController {
 	}
 	
 	/**
-	 * É¾³ıÒ»Ìõ¾çÄ¿ĞÅÏ¢µÄ¿ØÖÆ
+	 * åˆ é™¤ä¸€æ¡å‰§ç›®ä¿¡æ¯çš„æ§åˆ¶
 	 * 
 	 * @param dramaId
 	 * @return String
