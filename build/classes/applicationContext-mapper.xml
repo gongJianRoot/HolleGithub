@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd"
+	default-autowire="byName"> <!--左侧： 设置自动装配 -->
+
+	<!-- DataSource配置：由Spring容器提供 -->
+	<bean id="ds"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<!-- 分别设置链接数据库的参数 -->
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/dramaratings?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+
+	<!-- SqlSessionFactory的创建 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+
+		<!-- 注入外部bean -->
+		<property name="dataSource" ref="ds" />
+
+		<!-- 设置别名 -->
+		<property name="typeAliasesPackage" value="com.hw.entity" />
+
+		<!-- 映射文件 -->
+		<property name="mapperLocations">
+			<array>
+				<value>classpath:sqlmapper/UserMapper.xml</value>
+				<value>classpath:sqlmapper/DramaMapper.xml</value>
+				<value>classpath:sqlmapper/ScoreInfoMapper.xml</value>
+			</array>
+		</property>
+	</bean>
+
+	<!--mapper扫描器，加载所有的mapper.java接口，并创建实现类的对象，对象 名符合骆驼命名法 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.hw.mapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+</beans>

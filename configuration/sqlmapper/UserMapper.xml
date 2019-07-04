@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- UserMapper的xml文件，主要定义对数据库里面用户信息的操作 -->
+<mapper namespace="com.hw.mapper.UserMapper">
+
+	<!-- 根据和用户名和密码进行用户登陆的sql语句 -->
+	<select id="loginByNameAndPwd" parameterType="user"
+		resultType="user">
+		select * from user where userName=#{userName} and
+		userPwd=#{userPwd}
+	</select>
+
+	<!-- 根据和用户名和密码进行用户注册的sql语句 -->
+	<insert id="registerByNameAndPwd" parameterType="hashmap">
+		insert into
+		user(userName,userPwd,registerTime)
+		values(#{userName},#{userPwd},#{registerTime})
+	</insert>
+
+	<!-- 根据和用户名唯一性进行用户注册验证的sql语句 -->
+	<select id="registerByName" parameterType="String"
+		resultType="user">
+		select * from user where userName=#{userName}
+	</select>
+
+	<!-- 查询所有用户信息    返回值数据类型为map -->
+	<select id="selectAllUserInfo" resultType="Map">
+		SELECT u.userId,u.userName,u.userPwd
+		FROM `user` u;
+	</select>
+</mapper>

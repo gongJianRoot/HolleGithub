@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- DramaMapper的xml文件，主要定义对数据库里面话剧信息的操作 -->
+<mapper namespace="com.hw.mapper.ScoreInfoMapper">
+
+	<!-- 根据剧目ID查询剧目的平均点评分数的动态sql语句 -->
+	<select id="getScoreAvg" parameterType="list"
+		resultType="com.hw.entity.vo.ScoreInfoVo">
+		SELECT dramaid, AVG(score) AS scoreAvg FROM scoreinfo
+		where dramaId
+		<foreach collection="list" index="id" item="dramaId"
+			open="in(" separator="," close=")">
+			#{dramaId}
+		</foreach>
+		GROUP BY dramaid;
+	</select>
+
+	<!-- 用户进行影评，向scoreInfo中添加数据的sql语句 -->
+	<insert id="addScoreInfo" parameterType="scoreinfo">
+		insert into scoreinfo(userId,dramaId,score) values(#{userId},#{dramaId},#{score})
+	</insert>
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

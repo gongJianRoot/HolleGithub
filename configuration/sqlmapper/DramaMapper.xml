@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- DramaMapper的xml文件，主要定义对数据库里面话剧信息的操作 -->
+<mapper namespace="com.hw.mapper.DramaMapper">
+	<!-- 无条件查询所有剧目信息的sql语句 -->
+	<select id="getAllDramas" resultType="drama">
+		select * from dramainfo
+	</select>
+	
+	<insert id="addOneDrama" parameterType="drama">
+		insert into dramainfo(dramaName,theaterName,ticketPrice,dramaIntro) 
+		values(#{dramaName},#{theaterName},#{ticketPrice},#{dramaIntro})
+	</insert>
+
+	<!-- 根据剧目id删除一条剧目信息的sql语句 -->
+	<delete id="deleteOneDrama" parameterType="int">
+		delete from dramainfo where dramaId=#{dramaId}
+	</delete>
+
+
+
+
+
+
+
+
+
+
+</mapper>

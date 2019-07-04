@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"> 
+	
+	<!-- 通过配置文件对事务进行管理，声明式事务 -->
+	<!-- 事务管理器 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="ds"></property>
+	</bean>
+	
+	<!-- 通知 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<!-- 有哪些方法介入通知 -->
+			<tx:method name="insert*" propagation="REQUIRED"></tx:method>
+			<tx:method name="delete*" propagation="REQUIRED"></tx:method>
+			<tx:method name="update*" propagation="REQUIRED"></tx:method>
+			<tx:method name="add*" propagation="REQUIRED"></tx:method>
+			<tx:method name="find*" propagation="SUPPORTS"></tx:method>
+			<tx:method name="get*" propagation="REQUIRED"></tx:method>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 织入 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.hw.service.impl.*.*(..))" id="pointcut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
+	</aop:config>
+	
+</beans>
